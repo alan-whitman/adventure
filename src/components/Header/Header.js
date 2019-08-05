@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 
 import { connect } from 'react-redux';
-import { userLoggedIn } from '../../redux/reducer';
+import { userLoggedIn, userLoggedOut } from '../../redux/reducer';
 
 
 class Header extends Component {
@@ -13,17 +14,34 @@ class Header extends Component {
         this.state = {
             showLogin: false,
             showRegister: false,
-            loginUsername: '',
-            loginPassword: '',
-            registerUsername: '',
-            registerPassword: '',
+            username: '',
+            password: '',
         }
+        this.logout = this.logout.bind(this);
+        this.login = this.login.bind(this);
     }
     updateFields(e) {
         const { name, value } = e.target
         this.setState({[name]: value});
     }
+    componentDidMount() {
+    }
     componentDidUpdate() {
+    }
+    login() {
+        const { username, password } = this.state;
+        console.log(username, password)
+        axios.post('/auth/login', { username, password }).then(res => {
+            this.props.userLoggedIn(res.data);
+        }).catch(err => {
+            if (err.response)
+                console.log(err.response.data);
+        });
+    }
+    logout() {
+        axios.get('/auth/logout').then(res => {
+            this.props.userLoggedOut()
+        });
     }
     render() {
         return (
@@ -31,29 +49,36 @@ class Header extends Component {
                 <h4>Adventure Builder</h4>
                 <div className="auth-bar">
                     {this.props.isAuthenticated ? 
-                        this.props.user.username
+                        <div>
+                            <span>{this.props.user.username}</span>
+                            <button onClick={this.logout}>Logout</button>
+                        </div>
                     :
                         this.state.showLogin ?
                             <div className="login-fields">
                                 <span>Username:</span>
                                 <input 
                                     type="text"
-                                    name="loginUsername" 
-                                    value={this.state.loginUsername} 
+                                    name="username" 
+                                    value={this.state.username} 
                                     onChange={e => this.updateFields(e)}
                                 />
                                 <span>Password:</span> 
                                 <input 
                                     type="password" 
-                                    name="loginPassword" 
-                                    value={this.state.loginPassword} 
+                                    name="password" 
+                                    value={this.state.password} 
                                     onChange={e => this.updateFields(e)} 
                                 />
-                                <button>Login</button> 
+                                <button onClick={this.login}>Login</button> 
                                 <button onClick={e => this.setState({showLogin: false})}>Cancel</button>
                             </div>
                         :
-                            <button onClick={e => this.setState({showLogin: true})}>Login</button>
+                            <div className="login-register">
+                                <button onClick={e => this.setState({showLogin: true})}>Login</button>
+                                <Link to="/register">Register</Link>
+                            </div>
+
                     }
                 </div>
             </div>
@@ -69,4 +94,4 @@ const mapStateToProps = state => {
     }    
 }
 
-export default connect(mapStateToProps, { userLoggedIn })(Header);
+export default connect(mapStateToProps, { userLoggedIn, userLoggedOut })(Header);

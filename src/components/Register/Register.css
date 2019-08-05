@@ -1,0 +1,19 @@
+div.Register {
+    padding: 10px;
+    overflow: auto;
+}
+div.Register>div {
+    margin-bottom: 15px;
+}
+div.Register>h2 {
+    margin-bottom: 15px;
+}
+div.Register>div>i {
+    margin-left: 5px;
+}
+div.Register>div>.fa-check {
+    color: green;
+}
+div.Register>div>.fa-times {
+    color: red;
+}

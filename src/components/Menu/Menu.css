@@ -1,6 +1,8 @@
 div.Menu {
     width: 200px;
+    height: calc(100vh - 40px);
     border-right: 1px solid white;
+    flex-shrink: 0;
 }
 div.Menu>a {
     padding: 10px;

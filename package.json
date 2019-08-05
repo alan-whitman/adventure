@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
@@ -38,7 +39,7 @@
     ]
   },
   "main": "server/index.js",
-  "proxy": "http://localhost:5432",
+  "proxy": "http://localhost:6543",
   "nodemonConfig": {
     "ext": "js,sql",
     "ignore": [

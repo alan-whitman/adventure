@@ -12,7 +12,30 @@ div.Header div.auth-bar {
 div.Header div.login-fields {
     display: flex;
     align-items: center;
+    animation-duration: 0.3s;
+    animation-name: login-animation;
 }
 div.Header div.login-fields>* {
     margin-left: 15px;
+}
+div.Header div.login-register>a {
+    margin-left: 15px;
+    color: black;
+    background-color: lightgray;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 2px;
+}
+div.Header div.login-register>a:hover {
+    background-color: white;
+}
+
+@keyframes login-animation {
+    from {
+        transform: translateX(100%)
+    }
+    to {
+        transform: translateX(0%)
+    }
 }
