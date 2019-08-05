@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './MapEditor.css';
+
 import dummyMapData from './dummyMapData';
 import dummyPathData from './dummyPathData';
 

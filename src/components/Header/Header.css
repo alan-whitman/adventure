@@ -1,7 +1,18 @@
 div.Header {
-    height: 30px;
+    height: 40px;
     border-bottom: 1px solid white;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+div.Header div.auth-bar {
+}
+div.Header div.login-fields {
+    display: flex;
+    align-items: center;
+}
+div.Header div.login-fields>* {
+    margin-left: 15px;
 }

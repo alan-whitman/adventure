@@ -18,3 +18,27 @@ h2 {font-size: 36px}
 h3 {font-size: 28px}
 h4 {font-size: 22px}
 h5 {font-size: 18px}
+
+button {
+  font-family: 'Roboto Mono', monospace;
+  background-color: lightgray;
+  color: black;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px
+}
+button:hover {
+  background-color: white;
+  cursor: pointer;
+}
+input {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16px;
+  background-color: lightgray;
+  height: 22px;
+  outline: 0;
+  border-radius: 5px;
+}
+input:focus {
+  background-color: white;
+}
