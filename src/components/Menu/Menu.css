@@ -1,0 +1,14 @@
+div.Menu {
+    width: 200px;
+    border-right: 1px solid white;
+}
+div.Menu>a {
+    padding: 10px;
+    border-bottom: 1px solid white;
+    color: white;
+    display: block;
+    text-decoration: none;
+}
+div.Menu>a:hover {
+    background-color: blue;
+}

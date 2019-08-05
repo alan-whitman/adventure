@@ -1,0 +1,83 @@
+div.MapEditor {
+    width: 100%;
+    height: calc(100vh - 30px);
+    overflow: auto;
+    padding-top: 10px;
+}
+
+
+/* Room Styles */
+
+div.MapEditor div.room {
+    display: inline-block;
+    border-radius: 7px;
+}
+div.MapEditor div.inactiveroom {
+    border: 1px solid lightgray;
+    opacity: .5;
+}
+div.MapEditor div.inactiveroom:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+div.MapEditor div.activeroom {
+    /* border: 1px solid white; */
+    background-color: lightgray;
+}
+div.MapEditor div.activeroom:hover {
+    background-color: white;
+    cursor: pointer;
+}
+div.MapEditor div.roomrow {
+    /* border: 1px solid white; */
+}
+
+/* Connecting Path Styles */
+
+div.MapEditor div.horpath {
+    display: inline-block;
+    position: relative;
+}
+div.MapEditor div.inactivehorpath {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    opacity: .5
+}
+div.MapEditor div.inactivehorpath:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+div.MapEditor div.activehorpath {
+    background-color: lightgray;
+
+}
+div.MapEditor div.activehorpath:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+
+div.MapEditor div.inactivevertpath {
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    opacity: .5
+}
+div.MapEditor div.inactivevertpath:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+div.MapEditor div.activevertpath {
+    background-color: lightgray;
+}
+div.MapEditor div.activevertpath:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+
+div.MapEditor div.vertpathrow {
+}
+div.MapEditor div.vertpathholder {
+    display: inline-flex;
+    justify-content: center;
+}
