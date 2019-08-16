@@ -10,6 +10,9 @@ import Header from './components/Header/Header';
 import MapEditor from './components/MapEditor/MapEditor';
 import LandingPage from './components/LandingPage/LandingPage';
 import Register from './components/Register/Register'
+import Settings from './components/Settings/Settings'
+import MyGames from './components/MyGames/MyGames'
+import UserAlert from './components/UserAlert/UserAlert';
 
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
@@ -25,12 +28,15 @@ class App extends Component {
         return (
             <HashRouter>
                 <div className="App">
+                    <UserAlert />
                     <Header />
                     <div className="main-holder">
                         <Menu />
                         <Switch>
                             <Route path="/MapEditor" component={MapEditor} />
                             <Route path="/Register" component={Register} />
+                            <Route path="/Settings" component={Settings} />
+                            <Route path="/MyGames" component={MyGames} />
                             <Route path="/" component={LandingPage} />
                         </Switch>
                     </div>

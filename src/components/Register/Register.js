@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Register.css';
 
+import { Redirect } from 'react-router-dom';
+
 import stringIsValid from '../../utils/stringIsValid';
 
 import { connect } from 'react-redux';
@@ -48,16 +50,14 @@ class Register extends Component {
     submitRegistration() {
         const { username, usernameValid, password, passwordValid, confirmPasswordValid } = this.state;
         if (!usernameValid || !passwordValid || !confirmPasswordValid)
-            return console.log('invalid inputs');
+            return;
         else {
-            console.log('inputs valid');
             axios.post('/auth/register', { username, password }).then(res => {
                 this.props.userLoggedIn(res.data);
             }).catch(err => console.log(err));
         }
     }
     render() {
-        console.log(this.props)
         if (!this.props.isAuthenticated)
             return (
                 <div className="Register">
@@ -82,9 +82,7 @@ class Register extends Component {
             )
         else
             return (
-                <div className="Register">
-                    <h3>You are already logged in.</h3>
-                </div>
+                <Redirect to="/" />
             )
     }
 }

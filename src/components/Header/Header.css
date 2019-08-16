@@ -31,6 +31,17 @@ div.Header div.login-register>a:hover {
     background-color: white;
 }
 
+div.Header div.logged-in {
+
+}
+div.Header div.logged-in a {
+    color: lightgray;
+    margin-left: 10px;
+}
+div.Header div.logged-in a:hover {
+    color: white;
+}
+
 @keyframes login-animation {
     from {
         transform: translateX(100%)

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './Header.css';
 
 import { connect } from 'react-redux';
-import { userLoggedIn, userLoggedOut } from '../../redux/reducer';
+import { userLoggedIn, userLoggedOut, createAlertMessage } from '../../redux/reducer';
 
 
 class Header extends Component {
@@ -22,20 +22,18 @@ class Header extends Component {
     }
     updateFields(e) {
         const { name, value } = e.target
-        this.setState({[name]: value});
-    }
-    componentDidMount() {
-    }
-    componentDidUpdate() {
+        this.setState({ [name]: value });
     }
     login() {
         const { username, password } = this.state;
-        console.log(username, password)
+        if (username.trim() === '' || password.trim() === '')
+            return this.props.createAlertMessage('You must enter a username and password.');
         axios.post('/auth/login', { username, password }).then(res => {
             this.props.userLoggedIn(res.data);
+            this.setState({ username: '', password: '' })
         }).catch(err => {
             if (err.response)
-                console.log(err.response.data);
+                this.props.createAlertMessage(err.response.data);
         });
     }
     logout() {
@@ -46,36 +44,38 @@ class Header extends Component {
     render() {
         return (
             <div className="Header">
-                <h4>Adventure Builder</h4>
+                <h4><Link to="/">Adventure Builder</Link></h4>
                 <div className="auth-bar">
-                    {this.props.isAuthenticated ? 
-                        <div>
+                    {this.props.isAuthenticated ?
+                        <div className="logged-in">
                             <span>{this.props.user.username}</span>
-                            <button onClick={this.logout}>Logout</button>
+                            <Link to="/settings"><i className="fas fa-cog"></i></Link>
                         </div>
-                    :
+                        :
                         this.state.showLogin ?
                             <div className="login-fields">
                                 <span>Username:</span>
-                                <input 
+                                <input
                                     type="text"
-                                    name="username" 
-                                    value={this.state.username} 
+                                    name="username"
+                                    value={this.state.username}
                                     onChange={e => this.updateFields(e)}
+                                    onKeyPress={e => {if (e.key === 'Enter') this.login()}}
                                 />
-                                <span>Password:</span> 
-                                <input 
-                                    type="password" 
-                                    name="password" 
-                                    value={this.state.password} 
-                                    onChange={e => this.updateFields(e)} 
+                                <span>Password:</span>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={this.state.password}
+                                    onChange={e => this.updateFields(e)}
+                                    onKeyPress={e => {if (e.key === 'Enter') this.login()}}
                                 />
-                                <button onClick={this.login}>Login</button> 
-                                <button onClick={e => this.setState({showLogin: false})}>Cancel</button>
+                                <button onClick={this.login}>Login</button>
+                                <button onClick={e => this.setState({ showLogin: false })}>Cancel</button>
                             </div>
-                        :
+                            :
                             <div className="login-register">
-                                <button onClick={e => this.setState({showLogin: true})}>Login</button>
+                                <button onClick={e => this.setState({ showLogin: true })}>Login</button>
                                 <Link to="/register">Register</Link>
                             </div>
 
@@ -91,7 +91,7 @@ const mapStateToProps = state => {
     return {
         user,
         isAuthenticated
-    }    
+    }
 }
 
-export default connect(mapStateToProps, { userLoggedIn, userLoggedOut })(Header);
+export default connect(mapStateToProps, { userLoggedIn, userLoggedOut, createAlertMessage })(Header);
