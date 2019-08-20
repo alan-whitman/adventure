@@ -1,3 +1,26 @@
 div.MyGames {
     padding: 10px;
+    width: 100%;
+}
+div.MyGames div.my-games-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+}
+div.MyGames div.game-listing {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    border-bottom: 1px solid white;
+    padding: 10px 0px 10px 0px;
+}
+div.MyGames div.game-listing:last-child {
+    border-bottom: none;
+}
+div.game-listing div.game-name {
+    width: 200px;
+}
+div.game-listing div.game-description {
+    
 }

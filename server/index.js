@@ -37,5 +37,6 @@ app.post('/auth/login', ac.login);
 */
 
 app.get('/games/myGames', gc.myGames);
+app.post('/games/createNewGame', gc.createNewGame)
 
 app.listen(sp, () => console.log(`listening on ${sp}`))

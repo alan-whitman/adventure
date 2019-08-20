@@ -7,7 +7,9 @@ create table games (
     game_id             SERIAL PRIMARY KEY,
     user_id             INTEGER NOT NULL,
     game_name           VARCHAR(60) NOT NULL,
-    game_description    TEXT
+    game_description    TEXT,
+    map_width           INTEGER NOT NULL,
+    map_height          INTEGER NOT NULL
 );
 create table game_maps (
     map_id              SERIAL PRIMARY KEY,

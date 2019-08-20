@@ -31,6 +31,23 @@ button:hover {
   background-color: white;
   cursor: pointer;
 }
+a.button-link {
+  font-family: 'Roboto Mono', monospace;
+  background-color: lightgray;
+  color: black;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+a.button-link:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
 input {
   font-family: 'Roboto Mono', monospace;
   font-size: 16px;
@@ -38,7 +55,16 @@ input {
   height: 22px;
   outline: 0;
   border-radius: 5px;
+  width: 220px;
 }
 input:focus {
   background-color: white;
+}
+a {
+  color: lightgray;
+  text-decoration: none;
+}
+a:hover {
+  color: white;
+  text-decoration: none;
 }

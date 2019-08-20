@@ -12,6 +12,8 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Register from './components/Register/Register'
 import Settings from './components/Settings/Settings'
 import MyGames from './components/MyGames/MyGames'
+import EditGame from './components/EditGame/EditGame';
+import CreateGame from './components/CreateGame/CreateGame';
 import UserAlert from './components/UserAlert/UserAlert';
 
 import { HashRouter, Switch, Route } from 'react-router-dom';
@@ -37,6 +39,8 @@ class App extends Component {
                             <Route path="/Register" component={Register} />
                             <Route path="/Settings" component={Settings} />
                             <Route path="/MyGames" component={MyGames} />
+                            <Route path="/CreateGame" component={CreateGame} />
+                            <Route path="/EditGame/:gameId" component={EditGame} />
                             <Route path="/" component={LandingPage} />
                         </Switch>
                     </div>

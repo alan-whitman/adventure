@@ -1,0 +1,42 @@
+div.CreateGame {
+    width: 100%;
+    padding: 10px;
+}
+div.CreateGame h2 {
+    margin-bottom: 10px;
+}
+div.CreateGame div.new-game-fields {
+    display: grid;
+    grid-template-columns: 200px auto;
+}
+div.CreateGame div.new-game-fields div{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+div.CreateGame div.new-game-fields input {
+    width: 400px;
+}
+
+div.CreateGame div.new-game-fields textarea {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    background-color: lightgray;
+    outline: 0;
+    border-radius: 5px;
+    width: 400px;
+    height: 200px;
+}
+div.CreateGame div.new-game-fields textarea:focus {
+    background-color: white;
+}
+div.CreateGame div.new-game-fields select {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    background-color: lightgray;
+    outline: 0;
+    border-radius: 5px;
+    width: 70px;
+}
+div.CreateGame div.new-game-fields select:focus {
+    background-color: white;
+}
