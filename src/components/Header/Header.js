@@ -17,7 +17,6 @@ class Header extends Component {
             username: '',
             password: '',
         }
-        this.logout = this.logout.bind(this);
         this.login = this.login.bind(this);
     }
     updateFields(e) {
@@ -34,11 +33,6 @@ class Header extends Component {
         }).catch(err => {
             if (err.response)
                 this.props.createAlertMessage(err.response.data);
-        });
-    }
-    logout() {
-        axios.get('/auth/logout').then(res => {
-            this.props.userLoggedOut()
         });
     }
     render() {

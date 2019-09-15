@@ -22,8 +22,6 @@ class MapEditor extends Component {
         const roomRenderSize = Math.floor(this.mapWindowRef.current.clientWidth / maxX);
         this.setState({roomRenderSize});
     }
-    componentDidUpdate() {
-    }
     renderRooms() {
         const { maxX, maxY, roomRenderSize, pathData, roomData } = this.state;
         let rooms= []

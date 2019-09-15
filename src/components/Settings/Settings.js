@@ -3,6 +3,8 @@ import './Settings.css'
 
 import { userLoggedOut, createAlertMessage } from '../../redux/reducer';
 
+import axios from 'axios';
+
 import { connect } from 'react-redux';
 
 class Settings extends Component {
@@ -11,7 +13,9 @@ class Settings extends Component {
         this.logout = this.logout.bind(this);
     }
     logout() {
-        this.props.userLoggedOut();
+        axios.get('/auth/logout').then(res => {
+            this.props.userLoggedOut();
+        }).catch(err => console.error(err));
     }
     render() {
         return (

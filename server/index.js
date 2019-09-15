@@ -33,10 +33,11 @@ app.get('/auth/logout', ac.logout);
 app.post('/auth/login', ac.login);
 
 /*
-    Game Endpoints
+    Game Editing Endpoints
 */
 
-app.get('/games/myGames', gc.myGames);
-app.post('/games/createNewGame', gc.createNewGame)
+app.get('/editGames/myGames', gc.myGames);
+app.post('/editGames/createNewGame', gc.createNewGame);
+app.get('/editGames/editGame/:gameId', gc.editGame);
 
 app.listen(sp, () => console.log(`listening on ${sp}`))

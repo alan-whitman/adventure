@@ -1,5 +1,5 @@
 INSERT INTO users
-    (username, password)
+    (username, password, creation_time)
 VALUES
-    (${username}, ${pwHash})
+    (${username}, ${pwHash}, ${creationTime})
 RETURNING *;

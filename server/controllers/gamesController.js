@@ -31,11 +31,30 @@ module.exports = {
             if (existingGame[0])
                 return res.status(400).send('A game by that name already exists. Please choose a different name.');
             const { user_id } = req.session.user;
-            let creationTime = String(Math.floor(Date.now() / 1000));
+            const creationTime = String(Math.floor(Date.now() / 1000));
 
             const newGame = await db.games.createNewGame(user_id, gameName, gameDescription, mapWidth, mapHeight, creationTime);
             return res.send(newGame[0]);
 
+        } catch(err) {
+            console.log(err);
+            res.status(500).send('The server has encountered an error. Please try again later.')
+        }
+    },
+    async editGame(req, res) {
+        try {
+            if (!req.session.user)
+                return res.status(400).send('You must be logged in to edit your games.'); 
+            if (Number.isNaN(Number(req.params.gameId)))
+                return res.status(400).send('Game IDs should be numbers. You seem to have reached this page in error.');
+            const db = req.app.get('db');
+            const games = await db.games.getGameById(req.params.gameId);
+            if (!games[0])
+                return res.status(400).send('No game found matching that ID.');
+            const game = games[0];
+            if (game.user_id !== req.session.user.user_id)
+                return res.status(400).send('You can only edit your own games.');
+            
         } catch(err) {
             console.log(err);
             res.status(500).send('The server has encountered an error. Please try again later.')
