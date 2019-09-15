@@ -29,10 +29,11 @@ module.exports = {
             const db = req.app.get('db');
             const existingGame = await db.games.getGameByName(gameName);
             if (existingGame[0])
-                return res.status(400).send('A game by that name already exists. Please choose a different name');
+                return res.status(400).send('A game by that name already exists. Please choose a different name.');
             const { user_id } = req.session.user;
-            const newGame = await db.games.createNewGame(user_id, gameName, gameDescription, mapWidth, mapHeight);
-            console.log(newGame);
+            let creationTime = String(Math.floor(Date.now() / 1000));
+
+            const newGame = await db.games.createNewGame(user_id, gameName, gameDescription, mapWidth, mapHeight, creationTime);
             return res.send(newGame[0]);
 
         } catch(err) {

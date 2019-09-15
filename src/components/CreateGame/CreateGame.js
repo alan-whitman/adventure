@@ -30,7 +30,8 @@ class CreateGame extends Component {
         if (gameName.length < 4)
             return this.props.createAlertMessage('Game name must be between 4 and 40 characters.')
         axios.post('/games/createNewGame', { gameName, gameDescription, mapWidth, mapHeight }).then(res => {
-            console.log(res.data);
+            this.props.createAlertMessage('New game created.');
+            this.props.history.push('/MyGames');
         }).catch(err => {if (err.response) this.props.createAlertMessage(err.response.data)});
     }
     render() {

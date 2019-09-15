@@ -1,6 +1,10 @@
 div.MyGames {
     padding: 10px;
     width: 100%;
+    animation-duration: 0.1s;
+    animation-delay: 0s;
+    animation-direction: normal;
+    animation-iteration-count: 1;
 }
 div.MyGames div.my-games-header {
     display: flex;
@@ -14,13 +18,33 @@ div.MyGames div.game-listing {
     justify-content: left;
     border-bottom: 1px solid white;
     padding: 10px 0px 10px 0px;
+    width: 100%;
+}
+div.MyGames div.game-listing>div {
+    margin-right: 20px;
+    padding: 3px 0px 3px 0px;
+}
+div.game-listing-header>div {
+    font-size: 20px;
+    font-weight: bold;
 }
 div.MyGames div.game-listing:last-child {
     border-bottom: none;
 }
-div.game-listing div.game-name {
+div.MyGames div.game-listing div.game-name {
     width: 200px;
 }
-div.game-listing div.game-description {
-    
+div.MyGames div.game-listing div.game-description {
+    width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

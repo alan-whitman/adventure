@@ -38,6 +38,7 @@ class App extends Component {
                             <Route path="/MapEditor" component={MapEditor} />
                             <Route path="/Register" component={Register} />
                             <Route path="/Settings" component={Settings} />
+                            <Route path="/MyGames/:sortOrder" component={MyGames} />
                             <Route path="/MyGames" component={MyGames} />
                             <Route path="/CreateGame" component={CreateGame} />
                             <Route path="/EditGame/:gameId" component={EditGame} />
