@@ -1,0 +1,25 @@
+div.EditGame {
+    width: 100%;
+}
+div.EditGame div.edit-menu {
+    display: flex;
+    border-bottom: 1px solid white;
+    justify-content: space-around;
+    align-items: center;
+
+}
+div.EditGame div.edit-menu>a {
+    padding: 10px;
+    border-right: 1px solid white;
+    width: 100%;
+    text-align: center;
+}
+div.EditGame div.edit-menu>a:last-child {
+    border-right: none;
+}
+div.EditGame div.edit-menu>a:hover {
+    background-color: royalblue;
+}
+div.EditGame div.edit-menu>a.active {
+    background-color: royalblue;
+}

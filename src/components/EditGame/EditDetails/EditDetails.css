@@ -1,0 +1,50 @@
+div.EditDetails {
+    padding: 10px;
+}
+div.EditDetails h2 {
+    margin-bottom: 10px;
+}
+div.EditDetails div.edit-fields {
+    display: grid;
+    grid-template-columns: 200px 410px 50px;
+    align-items: top;
+}
+div.EditDetails div.edit-fields>div {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+div.EditDetails div.edit-fields div.edit-name-field>div {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    background-color: rgb(50, 50, 50);
+    border: 1px solid white;
+    color: white;
+    padding-left: 3px;
+    padding-top: 1px;
+    border-radius: 5px;
+    width: 400px;
+    height: 22px;
+    cursor: default;
+}
+div.EditDetails div.edit-fields div.edit-description-field>div {
+    font-size: 16px;
+    background-color: rgb(50, 50, 50);
+    border: 1px solid white;
+    color: white;
+    padding-left: 3px;
+    padding-top: 1px;
+    border-radius: 5px;
+    width: 400px;
+    height: 200px;
+    cursor: default;
+}
+
+div.EditDetails div.edit-fields div.edit-name-field input {
+    width: 400px;
+}
+
+div.EditDetails .fas {
+    cursor: pointer
+
+}

@@ -52,7 +52,7 @@ class MyGames extends Component {
                 <div key={this.props.user.user_id + '|' + game.game_name} className="game-listing">
                     <div className="game-name"><Link to={'/EditGame/' + game.game_id}>{game.game_name}</Link></div>
                     <div className="game-description"><Link to={'/EditGame/' + game.game_id}>{game.game_description}</Link></div>
-                    <div>{(ts.getMonth() + 1) + '-' + ts.getDate() + '-' + ts.getFullYear()}</div>
+                    <div className="created-on">{(ts.getMonth() + 1) + '-' + ts.getDate() + '-' + ts.getFullYear()}</div>
                 </div>
             )
         });
@@ -69,7 +69,7 @@ class MyGames extends Component {
                     <div className="game-listing game-listing-header">
                         <div className="game-name"><Link to="/MyGames/ByName">Game Name</Link></div>
                         <div className="game-description"><Link to="/MyGames/ByDescription">Game Description</Link></div>
-                        <div><Link to="/MyGames/ByCreation">Created On</Link></div>
+                        <div className="created-on"><Link to="/MyGames/ByCreation">Created On</Link></div>
                     </div>
                 }
                 {this.props.isAuthenticated ?

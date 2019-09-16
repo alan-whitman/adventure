@@ -7,7 +7,7 @@ require('dotenv').config();
 const { CONNECTION_STRING: cs, SERVER_PORT: sp, SECRET: secret } = process.env;
 
 const ac = require('./controllers/authController');
-const gc = require('./controllers/gamesController');
+const egc = require('./controllers/editGamesController');
 
 const checkPrivilegeLevel = require('./middleware/checkPrivilegeLevel');
 
@@ -36,8 +36,8 @@ app.post('/auth/login', ac.login);
     Game Editing Endpoints
 */
 
-app.get('/editGames/myGames', gc.myGames);
-app.post('/editGames/createNewGame', gc.createNewGame);
-app.get('/editGames/editGame/:gameId', gc.editGame);
+app.get('/editGames/myGames', egc.myGames);
+app.post('/editGames/createNewGame', egc.createNewGame);
+app.get('/editGames/getGame/:gameId', egc.getGame);
 
 app.listen(sp, () => console.log(`listening on ${sp}`))

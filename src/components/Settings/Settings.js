@@ -24,9 +24,6 @@ class Settings extends Component {
                 {this.props.isAuthenticated &&
                     <button onClick={this.logout}>Logout</button>
                 }
-                <div>
-                    <button onClick={() => this.props.createAlertMessage('test')}>Test</button>
-                </div>
             </div>
         )
     }

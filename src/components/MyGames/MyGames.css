@@ -1,7 +1,7 @@
 div.MyGames {
     padding: 10px;
     width: 100%;
-    animation-duration: 0.1s;
+    animation-duration: 0.05s;
     animation-delay: 0s;
     animation-direction: normal;
     animation-iteration-count: 1;
@@ -15,7 +15,6 @@ div.MyGames div.my-games-header {
 div.MyGames div.game-listing {
     display: flex;
     align-items: center;
-    justify-content: left;
     border-bottom: 1px solid white;
     padding: 10px 0px 10px 0px;
     width: 100%;
@@ -40,11 +39,5 @@ div.MyGames div.game-listing div.game-description {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+div.MyGames div.game-listing div.created-on {
 }

@@ -32,7 +32,6 @@ module.exports = {
                 return res.status(400).send('A game by that name already exists. Please choose a different name.');
             const { user_id } = req.session.user;
             const creationTime = String(Math.floor(Date.now() / 1000));
-
             const newGame = await db.games.createNewGame(user_id, gameName, gameDescription, mapWidth, mapHeight, creationTime);
             return res.send(newGame[0]);
 
@@ -41,7 +40,7 @@ module.exports = {
             res.status(500).send('The server has encountered an error. Please try again later.')
         }
     },
-    async editGame(req, res) {
+    async getGame(req, res) {
         try {
             if (!req.session.user)
                 return res.status(400).send('You must be logged in to edit your games.'); 
@@ -54,7 +53,7 @@ module.exports = {
             const game = games[0];
             if (game.user_id !== req.session.user.user_id)
                 return res.status(400).send('You can only edit your own games.');
-            
+            return res.send(game);
         } catch(err) {
             console.log(err);
             res.status(500).send('The server has encountered an error. Please try again later.')

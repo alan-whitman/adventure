@@ -1,44 +1,78 @@
 import React, { Component } from 'react';
 import './EditGame.css'
 
+import EditDetails from './EditDetails/EditDetails';
+import EditMap from './EditMap/EditMap';
+import EditObjects from './EditObjects/EditObjects';
+import EditVerbs from './EditVerbs/EditVerbs';
+
 import axios from 'axios';
 
 import { connect } from 'react-redux'
-import { createAlertMessage } from '../../redux/reducer';
+import { createAlertMessage, setGame } from '../../redux/reducer';
+
+import { Link, Switch, Route } from 'react-router-dom';
 
 class EditGame extends Component {
     constructor() {
         super();
-        this.game = {}
+        this.state = {
+            isLoading: true
+        }
     }
     componentDidMount() {
-        axios.get('/editGames/editGame/' + this.props.match.params.gameId).then(res => {
-
-        }).catch(err => {if (err.response) this.props.createAlertMessage(err.response.data)});
+        axios.get('/editGames/getGame/' + this.props.match.params.gameId).then(res => {
+            this.props.setGame(res.data);
+            this.setState({ isLoading: false });
+        }).catch(err => {
+            if (err.response)
+                this.props.createAlertMessage(err.response.data);
+            this.setState({ game: {}, isLoading: false })
+        });
     }
     componentDidUpdate(prevProps) {
         if (this.props.match.params.gameId !== prevProps.match.params.gameId) {
-            axios.get('/editGames/editGame/' + this.props.match.params.gameId).then(res => {
-
-            }).catch(err => {if (err.response) this.props.createAlertMessage(err.response.data)});    
+            console.log('new id detected...');
+            axios.get('/editGames/getGame/' + this.props.match.params.gameId).then(res => {
+                this.setState({ isLoading: false });
+                this.props.setGame(res.data);
+            }).catch(err => {
+                if (err.response)
+                    this.props.createAlertMessage(err.response.data);
+                this.setState({ game: {}, isLoading: false })
+            });
         }
     }
     render() {
+        const { gameId } = this.props.match.params;
         return (
             <div className="EditGame">
-                <h2>Edit Game</h2>
-                <p>Game Id: {this.props.match.params.gameId}</p>
+                <div className="edit-menu">
+                    <Link to={'/EditGame/' + gameId}>Edit Details</Link>
+                    <Link to={'/EditGame/' + gameId + '/EditMap'}>Edit Map</Link>
+                    <Link to={'/EditGame/' + gameId + '/EditObjects'}>Edit Objects</Link>
+                    <Link to={'/EditGame/' + gameId + '/EditVerbs'}>Edit Verbs</Link>
+                </div>
+                {!this.state.isLoading && this.props.currentGame.game_name ?
+                    <Switch>
+                        <Route path={'/EditGame/' + gameId + '/EditMap'} component={EditMap} />
+                        <Route path={'/EditGame/' + gameId + '/EditObjects'} component={EditObjects} />
+                        <Route path={'/EditGame/' + gameId + '/EditVerbs'} component={EditVerbs} />
+                        <Route path={'/EditGame/' + gameId} component={EditDetails} />
+                    </Switch>
+                : null}
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    const { isAuthenticated, user } = state;
+    const { isAuthenticated, user, currentGame } = state;
     return {
         isAuthenticated,
-        user
+        user,
+        currentGame
     }
 }
 
-export default connect(mapStateToProps, { createAlertMessage })(EditGame);
+export default connect(mapStateToProps, { createAlertMessage, setGame })(EditGame);
