@@ -1,0 +1,27 @@
+/* Room Styles */
+
+div.EditMap div.room {
+    display: inline-block;
+    border-radius: 7px;
+    /* position: relative;
+    z-index: 0; */
+}
+div.EditMap div.inactiveroom {
+    border: 1px solid lightgray;
+    opacity: .5;
+}
+div.EditMap div.inactiveroom:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+div.EditMap div.activeroom {
+    /* border: 1px solid white; */
+    background-color: lightgray;
+}
+div.EditMap div.activeroom:hover {
+    background-color: white;
+    cursor: pointer;
+}
+div.EditMap div.roomrow {
+    /* border: 1px solid white; */
+}

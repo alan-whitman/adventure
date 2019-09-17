@@ -5,6 +5,7 @@ import EditDetails from './EditDetails/EditDetails';
 import EditMap from './EditMap/EditMap';
 import EditObjects from './EditObjects/EditObjects';
 import EditVerbs from './EditVerbs/EditVerbs';
+import GameInfo from './GameInfo/GameInfo';
 
 import axios from 'axios';
 
@@ -47,8 +48,8 @@ class EditGame extends Component {
         return (
             <div className="EditGame">
                 <div className="edit-menu">
-                    <Link>Editing: {this.props.currentGame.game_name}</Link>
-                    <Link to={'/EditGame/' + gameId}>Edit Details</Link>
+                    <Link to={'/EditGame/' + gameId}>{this.props.currentGame.game_name}</Link>
+                    <Link to={'/EditGame/' + gameId + '/EditDetails'}>Edit Details</Link>
                     <Link to={'/EditGame/' + gameId + '/EditMap'}>Edit Map</Link>
                     <Link to={'/EditGame/' + gameId + '/EditObjects'}>Edit Objects</Link>
                     <Link to={'/EditGame/' + gameId + '/EditVerbs'}>Edit Verbs</Link>
@@ -58,7 +59,8 @@ class EditGame extends Component {
                         <Route path={'/EditGame/' + gameId + '/EditMap'} component={EditMap} />
                         <Route path={'/EditGame/' + gameId + '/EditObjects'} component={EditObjects} />
                         <Route path={'/EditGame/' + gameId + '/EditVerbs'} component={EditVerbs} />
-                        <Route path={'/EditGame/' + gameId} component={EditDetails} />
+                        <Route path={'/EditGame/' + gameId + '/EditDetails'} component={EditDetails} />
+                        <Route path={'/EditGame/' + gameId} component={GameInfo} />
                     </Switch>
                 : null}
             </div>
