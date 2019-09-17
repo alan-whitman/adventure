@@ -31,7 +31,10 @@ div.MyGames div.game-listing:last-child {
     border-bottom: none;
 }
 div.MyGames div.game-listing div.game-name {
-    width: 200px;
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 div.MyGames div.game-listing div.game-description {
     width: 500px;

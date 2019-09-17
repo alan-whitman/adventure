@@ -32,10 +32,9 @@ class EditGame extends Component {
     }
     componentDidUpdate(prevProps) {
         if (this.props.match.params.gameId !== prevProps.match.params.gameId) {
-            console.log('new id detected...');
             axios.get('/editGames/getGame/' + this.props.match.params.gameId).then(res => {
-                this.setState({ isLoading: false });
                 this.props.setGame(res.data);
+                this.setState({ isLoading: false });
             }).catch(err => {
                 if (err.response)
                     this.props.createAlertMessage(err.response.data);
@@ -48,6 +47,7 @@ class EditGame extends Component {
         return (
             <div className="EditGame">
                 <div className="edit-menu">
+                    <Link>Editing: {this.props.currentGame.game_name}</Link>
                     <Link to={'/EditGame/' + gameId}>Edit Details</Link>
                     <Link to={'/EditGame/' + gameId + '/EditMap'}>Edit Map</Link>
                     <Link to={'/EditGame/' + gameId + '/EditObjects'}>Edit Objects</Link>

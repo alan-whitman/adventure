@@ -1,0 +1,87 @@
+div.EditMap {
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow: auto;
+    padding-top: 10px;
+}
+
+div.EditMap h2 {
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+/* Room Styles */
+
+div.EditMap div.room {
+    display: inline-block;
+    border-radius: 7px;
+}
+div.EditMap div.inactiveroom {
+    border: 1px solid lightgray;
+    opacity: .5;
+}
+div.EditMap div.inactiveroom:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+div.EditMap div.activeroom {
+    /* border: 1px solid white; */
+    background-color: lightgray;
+}
+div.EditMap div.activeroom:hover {
+    background-color: white;
+    cursor: pointer;
+}
+div.EditMap div.roomrow {
+    /* border: 1px solid white; */
+}
+
+/* Connecting Path Styles */
+
+div.EditMap div.horpath {
+    display: inline-block;
+    position: relative;
+}
+div.EditMap div.inactivehorpath {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    opacity: .5
+}
+div.EditMap div.inactivehorpath:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+div.EditMap div.activehorpath {
+    background-color: lightgray;
+
+}
+div.EditMap div.activehorpath:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+
+div.EditMap div.inactivevertpath {
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    opacity: .5
+}
+div.EditMap div.inactivevertpath:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+div.EditMap div.activevertpath {
+    background-color: lightgray;
+}
+div.EditMap div.activevertpath:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+
+div.EditMap div.vertpathrow {
+}
+div.EditMap div.vertpathholder {
+    display: inline-flex;
+    justify-content: center;
+}

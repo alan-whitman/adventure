@@ -58,5 +58,38 @@ module.exports = {
             console.log(err);
             res.status(500).send('The server has encountered an error. Please try again later.')
         }
+    },
+    async editGameDetails(req, res) {
+        try {
+            let { newName, newDescription, newMapWidth, newMapHeight, gameId } = req.body;
+            if (!req.session.user)
+                return res.status(400).send('You must be logged in to create a new game.');
+            if (newName.length < 4 || newName.length > 40)
+                return res.status(400).send('Your game name must be between 4 and 40 characters in length.');
+            if (newDescription.length > 400)
+                return res.status(400).send('Your game description cannot be more than 400 characters in length.');
+            newMapWidth = Number(newMapWidth);
+            newMapHeight = Number(newMapHeight);
+            if (isNaN(newMapWidth) || isNaN(newMapHeight))
+                return res.stat.send('Map width and height must be numbers betwen 1 and 15.');
+            if (newMapWidth < 1 || newMapWidth > 15 || newMapHeight < 1 || newMapHeight > 15)
+                return res.stat.send('Map width and height must be numbers betwen 1 and 15.');
+            const db = req.app.get('db');
+            const existingGame = await db.games.getGameByName(newName);
+            if (existingGame[0] && existingGame[0].game_id !== gameId)
+                return res.status(400).send('A game by that name already exists. Please chooes a different name.')
+            const checkCreatorId = await db.games.getGameById(gameId);
+            if (checkCreatorId[0].user_id !== req.session.user.user_id)
+                return res.status(400).send('You can only edit your own games');
+            const updatedGame = await db.games.updateGameDetails(newName, newDescription, newMapWidth, newMapHeight, gameId);
+            /*
+                ADD CODE TO DELETE ROOMS OUTSIDE THE MAX RANGE. 
+                PROBABLY NEED TO CHECK FOR OBJCTS WHOSE STARTING POSITION IS OUTSIDE AS WELL
+            */
+            return res.send(updatedGame[0]);
+        } catch(err) {
+            console.log(err);
+            res.status(500).send('The server has encountered an error. Please try again later.')
+        }
     }
 }

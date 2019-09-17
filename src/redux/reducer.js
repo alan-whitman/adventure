@@ -17,12 +17,12 @@ const reducer = (state = initialState, action) => {
         case USER_LOGGED_IN:
             return { ...state, isAuthenticated: true, user: action.payload };
         case USER_LOGGED_OUT:
-            return { ...state, isAuthenticated: false, user: {} };
+            return { ...initialState };
         case CREATE_ALERT_MESSAGE:
             alertCount = alertCount > 999 ? 0 : alertCount + 1;
-            return {...state, alertMessage: {message: action.payload, alertCount}};
+            return { ...state, alertMessage: { message: action.payload, alertCount } };
         case SET_GAME:
-            return {...state, currentGame: action.payload};
+            return { ...state, currentGame: action.payload };
         default:
             return state;
     }
@@ -41,7 +41,7 @@ const userLoggedOut = () => {
     }
 }
 
-const createAlertMessage = message =>  {
+const createAlertMessage = message => {
     return {
         type: CREATE_ALERT_MESSAGE,
         payload: message

@@ -39,5 +39,6 @@ app.post('/auth/login', ac.login);
 app.get('/editGames/myGames', egc.myGames);
 app.post('/editGames/createNewGame', egc.createNewGame);
 app.get('/editGames/getGame/:gameId', egc.getGame);
+app.post('/editGames/editGameDetails', egc.editGameDetails);
 
 app.listen(sp, () => console.log(`listening on ${sp}`))

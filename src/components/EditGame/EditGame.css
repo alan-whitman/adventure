@@ -13,6 +13,9 @@ div.EditGame div.edit-menu>a {
     border-right: 1px solid white;
     width: 100%;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 div.EditGame div.edit-menu>a:last-child {
     border-right: none;
