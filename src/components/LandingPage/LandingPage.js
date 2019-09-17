@@ -4,7 +4,7 @@ import './LandingPage.css'
 class LandingPage extends Component {
     render() {
         return (
-            <h2>Landing Page Landing Page Landing Page</h2>
+            <h2>Landing Page</h2>
         )
     }
 }

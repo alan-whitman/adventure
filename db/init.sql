@@ -24,7 +24,10 @@ CREATE TABLE rooms (
 CREATE TABLE paths (
     path_id             SERIAL PRIMARY KEY,
     game_id             INTEGER NOT NULL,
-    path                VARCHAR(10) NOT NULL
+    x1                  INTEGER NOT NULL,
+    x2                  INTEGER NOT NULL,
+    y1                  INTEGER NOT NULL,
+    y2                  INTEGER NOT NULL
 );
 CREATE TABLE game_objects (
     object_id           SERIAL PRIMARY KEY,

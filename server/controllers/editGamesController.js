@@ -70,8 +70,8 @@ module.exports = {
             const checkCreatorId = await db.editGames.getGameById(gameId);
             const updatedGame = await db.editGames.updateGameDetails(newName, newDescription, newMapWidth, newMapHeight, gameId);
             /*
-                ADD CODE TO DELETE ROOMS OUTSIDE THE MAX RANGE. 
-                PROBABLY NEED TO CHECK FOR OBJECTS WHOSE STARTING POSITION IS OUTSIDE AS WELL AND REMOVE THAT
+                ADD CODE TO DELETE ROOMS AND PATHS OUTSIDE THE NEW MAX RANGES.
+                PROBABLY NEED TO CHECK FOR OBJECTS WHOSE STARTING POSITION IS OUTSIDE AS WELL AND REMOVE THEIR POSITIONS.
             */
             return res.send(updatedGame[0]);
         } catch (err) {
@@ -79,12 +79,13 @@ module.exports = {
             res.status(500).send('The server has encountered an error. Please try again later.')
         }
     },
-    async getRooms(req, res) {
+    async getMapData(req, res) {
         try {
             const { gameId } = req.params;
             const db = req.app.get('db');
             const rooms = await db.editGames.getRoomsByGameId(gameId);
-            return res.send(rooms);
+            const paths = await db.editGames.getPathsByGameId(gameId);
+            return res.send({rooms, paths});
         } catch(err) {
             console.log(err);
             res.status(500).send('The server has encountered an error. Please try again later.')            
@@ -115,6 +116,24 @@ module.exports = {
             */
 
             res.send(rooms);
+        } catch(err) {
+            console.log(err);
+            res.status(500).send('The server has encountered an error. Please try again later.')            
+        }
+    },
+    async createPath(req, res) {
+        try {
+            const { x1, y1, x2, y2, gameId } = req.body;
+            const db = req.app.get('db');
+            const existingPath = await db.editGames.getPathByCoordsAndId(x1, y1, x2, y2, gameId);
+            if (existingPath[0])
+                return res.status(400).send('A path already exists in this place');
+            const roomCheck = await db.editGames.getRoomsForPathCheck(x1, y1, x2, y2, gameId);
+            if (roomCheck.length !== 2)
+                return this.status(400).send('A path can only be created between two active rooms.');
+            const paths = await db.editGames.createPath(x1, y1, x2, y2, gameId);
+            console.log(paths);
+            return res.send(paths);
         } catch(err) {
             console.log(err);
             res.status(500).send('The server has encountered an error. Please try again later.')            
