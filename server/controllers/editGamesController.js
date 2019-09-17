@@ -103,5 +103,21 @@ module.exports = {
             console.log(err);
             res.status(500).send('The server has encountered an error. Please try again later.')            
         }
+    },
+    async deleteRoom(req, res) {
+        try {
+            const { roomId, gameId } = req.body;
+            const db = req.app.get('db');
+            const rooms = await db.editGames.deleteRoomById(roomId, gameId);
+            /*
+                ADD CODE TO REMOVE THE STARTING LOCATION OF OBJECTS THAT START IN THIS ROOM
+                ADD CODE TO DELETE CONNECTING PATHS OF DELETED ROOM
+            */
+
+            res.send(rooms);
+        } catch(err) {
+            console.log(err);
+            res.status(500).send('The server has encountered an error. Please try again later.')            
+        }
     }
 }

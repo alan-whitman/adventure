@@ -28,11 +28,11 @@ div.EditMap div.inactivehorpath>div:hover {
     background-color: lightgray;
     cursor: pointer;
 }
-div.EditMap div.activehorpath {
+div.EditMap div.activehorpath>div {
     background-color: lightgray;
 
 }
-div.EditMap div.activehorpath:hover {
+div.EditMap div.activehorpath>div:hover {
     cursor: pointer;
     background-color: white;
 }
@@ -72,13 +72,13 @@ div.EditMap div.roomrow {
 
 /* Popup Styles */
 
-div.EditMap div.room-popup {
+div.EditMap div.popup {
     position: fixed;
     width: 190px;
     z-index: 1000;
     border: 1px solid lightgray;
 }
-div.EditMap div.room-popup>* {
+div.EditMap div.popup>* {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,9 +89,9 @@ div.EditMap div.room-popup>* {
     cursor: pointer;
     border-bottom: 1px solid lightgray;
 }
-div.EditMap div.room-popup>*:last-child {
+div.EditMap div.popup>*:last-child {
     border-bottom: none;
 }
-div.EditMap div.room-popup>*:hover {
+div.EditMap div.popup>*:hover {
     background-color: rgb(100, 100, 100)
 }

@@ -43,6 +43,7 @@ app.get('/editGames/getGame/:gameId', checkGameOwnership, egc.getGame);
 app.post('/editGames/editGameDetails', checkGameOwnership, egc.editGameDetails);
 app.get('/editGames/getRooms/:gameId', checkGameOwnership, egc.getRooms);
 app.post('/editGames/createRoom', checkGameOwnership, egc.createRoom);
+app.post('/editGames/deleteRoom', checkGameOwnership, egc.deleteRoom);
 
 
 app.listen(sp, () => console.log(`listening on ${sp}`))

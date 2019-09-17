@@ -16,21 +16,33 @@ class EditMap extends Component {
         this.state = {
             roomRenderSize: 0,
             activeRooms: [],
-            pathData: [],
+            pathData: [
+                '2333',
+                '1222',
+                '1112',
+                '2223',
+                '3233',
+                '3132',
+                '3141'
+            ],
             maxX: props.currentGame.map_width,
             maxY: props.currentGame.map_height,
-            popupX: 0,
-            popupY: 0,
+            roomPopupX: 0,
+            roomPopupY: 0,
+            pathPopupX: 0,
+            pathPopupY: 0,
             popupRoomX: 0,
             popupRoomY: 0,
             popupRoomId: -1,
             popupRoomActive: false,
-            showPopup: false
+            showRoomPopup: false,
+            showPathPopup:false
         }
         this.renderRooms = this.renderRooms.bind(this);
-        this.showPopup = this.showPopup.bind(this);
-        this.clearPopup = this.clearPopup.bind(this);
+        this.displayRoomPopup = this.displayRoomPopup.bind(this);
+        this.clearRoomPopup = this.clearRoomPopup.bind(this);
         this.createRoom = this.createRoom.bind(this);
+        this.deleteRoom = this.deleteRoom.bind(this);
         this.mapWindowRef = React.createRef();
     }
     componentDidMount() {
@@ -40,42 +52,51 @@ class EditMap extends Component {
             roomRenderSize = 120;
         this.setState({ roomRenderSize });
         axios.get('/editGames/getRooms/' + this.props.currentGame.game_id).then(res => {
-            this.setState({activeRooms: res.data});
-        }).catch(err => {if (err.response) this.props.createAlertMessage(err.response.data)});
+            this.setState({ activeRooms: res.data });
+        }).catch(err => { if (err.response) this.props.createAlertMessage(err.response.data) });
     }
-    showPopup(e, roomX, roomY, activeRoomIndex) {
+    displayRoomPopup(e, roomX, roomY, activeRoomIndex, roomId) {
         this.setState({
-            popupX: e.clientX,
-            popupY: e.clientY,
-            showPopup: !this.state.showPopup,
+            roomPopupX: e.clientX,
+            roomPopupY: e.clientY,
+            showRoomPopup: !this.state.showRoomPopup,
             popupRoomX: roomX,
             popupRoomY: roomY,
-            popupRoomActive: activeRoomIndex === -1 ? false : true
+            popupRoomActive: activeRoomIndex === -1 ? false : true,
+            popupRoomId: roomId
         })
     }
-    clearPopup() {
-        if (this.state.showPopup)
+    clearRoomPopup() {
+        if (this.state.showRoomPopup)
             this.setState({
-                showPopup: false,
-                popupX: 0,
-                popupY: 0,
+                showRoomPopup: false,
+                roomPopupX: 0,
+                roomPopupY: 0,
                 popupRoomX: 0,
                 popupRoomY: 0,
                 popupRoomActive: false,
+                popupRoomId: -1
             })
+    }
+    displayPathPopup(e, pathCoords, pathIndex, pathId) {
+
     }
     createRoom() {
         let { activeRooms, popupRoomX, popupRoomY } = this.state;
         const existingRoomIndex = activeRooms.findIndex(room => room.room_x === popupRoomX && room.room_y === popupRoomY);
         if (existingRoomIndex !== -1)
             return this.createAlertMessage('Weird error, room is already active.')
-        axios.post('/editGames/createRoom', {roomX: popupRoomX, roomY: popupRoomY, gameId: this.props.currentGame.game_id}).then(res => {
-            this.setState({activeRooms: res.data});
+        axios.post('/editGames/createRoom', { roomX: popupRoomX, roomY: popupRoomY, gameId: this.props.currentGame.game_id }).then(res => {
+            this.setState({ activeRooms: res.data });
             this.props.createAlertMessage('New room created.');
-        }).catch(err => {if (err.response) this.props.createAlertMessage(err.response.data)});
+        }).catch(err => { if (err.response) this.props.createAlertMessage(err.response.data) });
     }
     deleteRoom() {
-
+        const { popupRoomId } = this.state;
+        axios.post('/editGames/deleteRoom', { roomId: popupRoomId, gameId: this.props.currentGame.game_id }).then(res => {
+            this.setState({ activeRooms: res.data });
+            this.props.createAlertMessage('Room deleted.');
+        }).catch(err => { if (err.response) this.props.createAlertMessage(err.response.data) });
     }
     renderRooms() {
         const { maxX, maxY, roomRenderSize, pathData, activeRooms } = this.state;
@@ -89,10 +110,11 @@ class EditMap extends Component {
                         activeRoomIndex={activeRoomIndex}
                         key={'x' + x + 'y' + y}
                         roomRenderSize={roomRenderSize}
-                        showPopup={this.showPopup}
+                        displayRoomPopup={this.displayRoomPopup}
                         roomX={x}
                         roomY={y}
-                        roomName={activeRoomIndex !== -1 ? activeRooms[activeRoomIndex].roomName : ''}
+                        roomName={activeRoomIndex !== -1 ? activeRooms[activeRoomIndex].room_name : ''}
+                        roomId={activeRoomIndex !== -1 ? activeRooms[activeRoomIndex].room_id : -1}
                     />
                 )
                 if (x < (maxX)) {
@@ -104,10 +126,13 @@ class EditMap extends Component {
                             className={pathClass}
                             key={'horpath' + x + y}
                         >
-                            <div style={{
-                                width: Math.floor(roomRenderSize * .2),
-                                height: Math.floor(roomRenderSize * .15),
-                            }} />
+                            <div 
+                                style={{
+                                    width: Math.floor(roomRenderSize * .2),
+                                    height: Math.floor(roomRenderSize * .15),
+                                }}
+                                onClick={e => console.log('clicking on path from ' + x + y + ' to ' + (x + 1) + y)}
+                            />
                         </div>
 
                     )
@@ -148,11 +173,11 @@ class EditMap extends Component {
                         </div>
                     )
                     vertRow.push(
-                        <div className="vertrow-spacer" 
+                        <div className="vertrow-spacer"
                             style={{
                                 width: Math.floor(roomRenderSize * .2),
                             }}
-                            key={'vertrowspacer' + vertCount + y} 
+                            key={'vertrowspacer' + vertCount + y}
                         />
                     )
                 }
@@ -173,16 +198,21 @@ class EditMap extends Component {
         return rooms;
     }
     render() {
-        const { showPopup, popupX, popupY, popupRoomId } = this.state;
+        const { showRoomPopup, roomPopupX, roomPopupY, popupRoomId, showPathPopup, pathPopupX, pathPopupY } = this.state;
         return (
-            <div className="EditMap" ref={this.mapWindowRef} onClick={this.clearPopup}>
-                <div className="room-popup" style={{ display: showPopup ? 'block' : 'none', top: popupY, left: popupX }}>
+            <div className="EditMap" ref={this.mapWindowRef} onClick={this.clearRoomPopup}>
+                <div className="popup" style={{ display: showRoomPopup ? 'block' : 'none', top: roomPopupY, left: roomPopupX }}>
                     {this.state.popupRoomActive ?
-                        <div onClick={this.deleteRoom}>Delete Room</div>
-                    :
+                        [
+                            <div key={'delete room'} onClick={this.deleteRoom}>Delete Room</div>,
+                            <Link key={'edit room'} to={'/EditGame/' + this.props.currentGame.game_id + '/Editroom/' + popupRoomId}>Edit room</Link>
+                        ]
+                        :
                         <div onClick={this.createRoom}>Create Room</div>
                     }
-                    <Link to={'/EditGame/' + this.props.currentGame.game_id + '/Editroom/' + popupRoomId}>Edit room</Link>
+                </div>
+                <div className="popup" style={{ display: showPathPopup ? 'block' : 'none', top: pathPopupY, left: pathPopupX }}>
+
                 </div>
 
                 <h2>Edit Map</h2>
