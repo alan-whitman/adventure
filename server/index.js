@@ -10,6 +10,7 @@ const ac = require('./controllers/authController');
 const egc = require('./controllers/editGamesController');
 
 const checkPrivilegeLevel = require('./middleware/checkPrivilegeLevel');
+const checkGameOwnership = require('./middleware/checkGameOwnership');
 
 massive(cs).then(db => {
     app.set('db', db);
@@ -38,7 +39,10 @@ app.post('/auth/login', ac.login);
 
 app.get('/editGames/myGames', egc.myGames);
 app.post('/editGames/createNewGame', egc.createNewGame);
-app.get('/editGames/getGame/:gameId', egc.getGame);
-app.post('/editGames/editGameDetails', egc.editGameDetails);
+app.get('/editGames/getGame/:gameId', checkGameOwnership, egc.getGame);
+app.post('/editGames/editGameDetails', checkGameOwnership, egc.editGameDetails);
+app.get('/editGames/getRooms/:gameId', checkGameOwnership, egc.getRooms);
+app.post('/editGames/createRoom', checkGameOwnership, egc.createRoom);
+
 
 app.listen(sp, () => console.log(`listening on ${sp}`))

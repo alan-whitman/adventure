@@ -17,6 +17,7 @@ CREATE TABLE rooms (
     room_id             SERIAL PRIMARY KEY,
     game_id             INTEGER NOT NULL,
     room_name           VARCHAR(60) NOT NULL,
+    room_description    TEXT,
     room_x              INTEGER NOT NULL,
     room_y              INTEGER NOT NULL
 );

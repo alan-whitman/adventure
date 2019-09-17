@@ -5,7 +5,7 @@ class EditRoom extends Component {
     render() {
         return (
             <div className="EditRoom">
-                Edit this room.
+                Edit room with id: {this.props.match.params.roomId}
             </div>
         )
     }

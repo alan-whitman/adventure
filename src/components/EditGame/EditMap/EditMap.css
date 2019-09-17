@@ -16,15 +16,15 @@ div.EditMap div.rooms {
 /* Connecting Path Styles */
 
 div.EditMap div.horpath {
-    display: inline-block;
-    position: relative;
+    display: flex;
+    align-items: center;
 }
-div.EditMap div.inactivehorpath {
+div.EditMap div.inactivehorpath>div {
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
     opacity: .5
 }
-div.EditMap div.inactivehorpath:hover {
+div.EditMap div.inactivehorpath>div:hover {
     background-color: lightgray;
     cursor: pointer;
 }
@@ -57,10 +57,16 @@ div.EditMap div.activevertpath:hover {
 
 
 div.EditMap div.vertpathrow {
+    display: flex;
 }
 div.EditMap div.vertpathholder {
     display: inline-flex;
     justify-content: center;
+}
+
+
+div.EditMap div.roomrow {
+    display: flex;
 }
 
 
