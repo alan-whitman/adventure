@@ -21,6 +21,8 @@ class EditDetails extends Component {
         this.cancelChanges = this.cancelChanges.bind(this);
     }
     saveChanges() {
+        if (this.state.editName || this.state.editDescription)
+            return this.props.createAlertMessage('Please save changes to the name and description fields first.');
         let { newName, newDescription, newMapWidth, newMapHeight } = this.state;
         newName = newName.trim();
         newDescription = newDescription.trim();
@@ -36,7 +38,9 @@ class EditDetails extends Component {
             newName: this.props.currentGame.game_name,
             newDescription: this.props.currentGame.game_description,
             newMapWidth: this.props.currentGame.map_width,
-            newMapHeight: this.props.currentGame.map_height
+            newMapHeight: this.props.currentGame.map_height,
+            editName: false,
+            editDescription: false
         })
     }
     updateFields(e) {

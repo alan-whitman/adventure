@@ -20,7 +20,9 @@ class EditMap extends Component {
     }
     componentDidMount() {
         const { maxX } = this.state;
-        const roomRenderSize = Math.floor(this.mapWindowRef.current.clientWidth / maxX);
+        let roomRenderSize = Math.floor(this.mapWindowRef.current.clientWidth / maxX);
+        if (roomRenderSize > 120)
+            roomRenderSize = 120;
         this.setState({roomRenderSize});
     }
     renderRooms() {
