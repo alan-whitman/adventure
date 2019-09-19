@@ -45,6 +45,6 @@ app.get('/editGames/getMapData/:gameId', checkGameOwnership, egc.getMapData);
 app.post('/editGames/createRoom', checkGameOwnership, egc.createRoom);
 app.post('/editGames/deleteRoom', checkGameOwnership, egc.deleteRoom);
 app.post('/editGames/createPath', checkGameOwnership, egc.createPath);
-
+app.post('/editGames/deletePath', checkGameOwnership, egc.deletePath);
 
 app.listen(sp, () => console.log(`listening on ${sp}`))

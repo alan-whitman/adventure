@@ -44,7 +44,7 @@ class EditMap extends Component {
         this.deleteRoom = this.deleteRoom.bind(this);
         this.createPath = this.createPath.bind(this);
         this.deletePath = this.deletePath.bind(this);
-        
+
         this.renderRooms = this.renderRooms.bind(this);
         this.mapWindowRef = React.createRef();
     }
@@ -129,14 +129,17 @@ class EditMap extends Component {
 
         // CHECK FOR EXISTING PATH CLIENT SIDE BEFORE SENDING TO SERVER
 
-        axios.post('/editGames/createPath', {x1: pathPopupX1, y1: pathPopupY1, x2: pathPopupX2, y2: pathPopupY2, gameId: this.props.currentGame.game_id}).then(res => {
-            this.setState({activePaths: res.data});
+        axios.post('/editGames/createPath', { x1: pathPopupX1, y1: pathPopupY1, x2: pathPopupX2, y2: pathPopupY2, gameId: this.props.currentGame.game_id }).then(res => {
+            this.setState({ activePaths: res.data });
             this.props.createAlertMessage('Path created.');
         }).catch(err => { if (err.response) this.props.createAlertMessage(err.response.data) });
     }
     deletePath() {
-        console.log(this.state.pathPopupId);
-
+        const { pathPopupId } = this.state;
+        axios.post('/editGames/deletePath', { pathId: pathPopupId, gameId: this.props.currentGame.game_id }).then(res => {
+            this.setState({ activePaths: res.data });
+            this.props.createAlertMessage('Path deleted.')
+        }).catch(err => { if (err.response) this.props.createAlertMessage(err.response.data) });
     }
     renderRooms() {
         const { maxX, maxY, roomRenderSize, activePaths, activeRooms } = this.state;
@@ -194,8 +197,9 @@ class EditMap extends Component {
                 let vertRow = []
                 for (let vertCount = 1; vertCount <= maxX; vertCount++) {
                     let pathClass = 'vertpath ';
-                    let isActivePath = activePaths.findIndex(path => path.x1 === vertCount && path.y1 === y && path.x2 === vertCount && path.y2 === y + 1) !== -1 ? true : false;
-                    pathClass += isActivePath ? 'activevertpath' : 'inactivevertpath'
+                    // let isActivePath = activePaths.findIndex(path => path.x1 === vertCount && path.y1 === y && path.x2 === vertCount && path.y2 === y + 1) !== -1 ? true : false;
+                    const activePathIndex = activePaths.findIndex(path => path.x1 === vertCount && path.y1 === y && path.x2 === vertCount && path.y2 === y + 1)
+                    pathClass += activePathIndex !== -1 ? 'activevertpath' : 'inactivevertpath';
                     vertRow.push(
                         <div
                             className="vertpathholder"
@@ -212,7 +216,7 @@ class EditMap extends Component {
                                     width: Math.floor(roomRenderSize * .15)
                                 }}
                                 onClick={e => {
-                                    this.displayPathPopup(e, vertCount, y, vertCount, y + 1, isActivePath)
+                                    this.displayPathPopup(e, vertCount, y, vertCount, y + 1, activePathIndex, activePathIndex !== -1 ? activePaths[activePathIndex].path_id : -1)
                                 }}
                             />
                         </div>

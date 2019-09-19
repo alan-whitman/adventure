@@ -130,10 +130,21 @@ module.exports = {
                 return res.status(400).send('A path already exists in this place');
             const roomCheck = await db.editGames.getRoomsForPathCheck(x1, y1, x2, y2, gameId);
             if (roomCheck.length !== 2)
-                return this.status(400).send('A path can only be created between two active rooms.');
+                return res.status(400).send('A path can only be created between two active rooms.');
             const paths = await db.editGames.createPath(x1, y1, x2, y2, gameId);
-            console.log(paths);
             return res.send(paths);
+        } catch(err) {
+            console.log(err);
+            res.status(500).send('The server has encountered an error. Please try again later.')            
+        }
+    },
+    async deletePath(req, res) {
+        try {
+            const { pathId, gameId } = req.body;
+            const db = req.app.get('db');
+            const paths = await db.editGames.deletePath(pathId, gameId);
+            res.send(paths);
+
         } catch(err) {
             console.log(err);
             res.status(500).send('The server has encountered an error. Please try again later.')            
