@@ -29,7 +29,7 @@ class App extends Component {
     render() {
         return (
             <HashRouter>
-                <div className="App">
+                <div className="App" key={this.props.isAuthenticated ? 'loggedIn' : 'notLoggedIn'}>
                     <UserAlert />
                     <Header />
                     <div className="main-holder">
@@ -51,4 +51,11 @@ class App extends Component {
     }
 }
 
-export default connect(null, { userLoggedIn})(App);
+const mapStateToProps = state => {
+    const { isAuthenticated } = state;
+    return {
+        isAuthenticated
+    }
+}
+
+export default connect(mapStateToProps, { userLoggedIn})(App);

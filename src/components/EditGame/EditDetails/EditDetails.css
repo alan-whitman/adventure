@@ -6,18 +6,18 @@ div.EditDetails h2 {
     margin-bottom: 10px;
 }
 
-div.EditDetails div.edit-fields {
+div.edit-fields {
     display: grid;
     grid-template-columns: 200px 410px 50px;
     align-items: top;
 }
 
-div.EditDetails div.edit-fields>div {
+div.edit-fields>div {
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
-div.EditDetails div.edit-fields div.edit-name-field>div {
+div.edit-fields div.edit-name-field>div {
     display: flex;
     align-items: center;
     font-size: 16px;
@@ -32,7 +32,7 @@ div.EditDetails div.edit-fields div.edit-name-field>div {
     cursor: default;
 }
 
-div.EditDetails div.edit-fields div.edit-description-field>div {
+div.edit-fields div.edit-description-field>div {
     font-size: 16px;
     background-color: rgb(50, 50, 50);
     border: 1px solid white;
@@ -46,7 +46,7 @@ div.EditDetails div.edit-fields div.edit-description-field>div {
     line-height: 20px;
 }
 
-div.EditDetails div.edit-fields div.edit-description-field>textarea {
+div.edit-fields div.edit-description-field>textarea {
     font-family: 'Roboto Mono', monospace;
     font-size: 16px;
     background-color: lightgray;
@@ -56,11 +56,11 @@ div.EditDetails div.edit-fields div.edit-description-field>textarea {
     height: 198px;
 }
 
-div.EditDetails div.edit-fields div.edit-name-field input {
+div.edit-fields div.edit-name-field input {
     width: 400px;
 }
 
-div.EditDetails div.edit-fields select {
+div.edit-fields select {
     font-family: 'Roboto Mono', monospace;
     font-size: 16px;
     background-color: lightgray;
@@ -69,10 +69,10 @@ div.EditDetails div.edit-fields select {
     width: 70px;
 }
 
-div.EditDetails div.edit-buttons>button {
+div.edit-buttons>button {
     margin-right: 10px;
 }
 
-div.EditDetails .fas {
+.fas {
     cursor: pointer
 }

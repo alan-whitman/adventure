@@ -149,5 +149,18 @@ module.exports = {
             console.log(err);
             res.status(500).send('The server has encountered an error. Please try again later.')            
         }
+    },
+    async getRoom(req, res) {
+        try {
+            const { roomId } = req.body;
+            const db = req.app.get('db');
+            const room = await db.editGames.getRoomById(roomId);
+            if (!room[0])
+                return res.status(400).send('Room not found.');
+            return res.send(room[0]);
+        } catch(err) {
+            console.log(err);
+            res.status(500).send('The server has encountered an error. Please try again later.')            
+        }
     }
 }
